@@ -72,6 +72,10 @@
         if (ballY <= player2Y + 170 && ballY > 75 + player1Y && ballX == 680) {
             velocityY = 1
         }
+        
+        if (ballY == 0 || ballY == 500) {
+            velocityY *= -1   
+        }
 
 
         ballX +=  velocityX;

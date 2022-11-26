@@ -1,0 +1,164 @@
+<center>
+    <canvas  id="game" height="500" width="700"></canvas>
+    <div class="scoreArea">
+        <h1 id="player1Scor">0</h1>
+        <h1 id="player2Scor">0</h1>
+    </div>
+
+</center>
+
+<style>
+    .scoreArea {
+        height:30px;
+        width:700px;
+        display:flex;
+        flex-direction:row;
+    }
+    h1 {
+        float: left;
+        margin-left:233.333333px;
+        font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    }
+</style>
+
+<script>
+
+    var player1Y  = 0;
+    var player2Y = 0;
+    var velocityX = -10;
+    var velocityY = 0;
+    var ballX = 350;
+    var ballY = 250;
+    var score1 = 0
+    var score2 = 0
+
+    setInterval(function(){
+        game();
+    },1000 / 15)
+    function game() {
+        cvs = document.getElementById('game');
+        ctx = cvs.getContext('2d');
+        document.addEventListener('keydown',  keyEvent);
+        draw();
+        
+        
+        if (ballY >= player1Y + 20 && ballY <= player1Y + 170 && ballX == 20) {
+            velocityX *= -1
+            velocityY *= -1
+          
+       
+        }
+
+        if (ballY >= player2Y + 20 && ballY <= player2Y + 170 && ballX == 680) {
+            velocityX *= -1
+            velocityY *= -1
+          
+       
+        }
+
+
+        if (ballY >= player1Y + 20 && ballY < 75 + player1Y && ballX == 20) {
+            velocityY = 1
+        }
+
+        if (ballY <= player1Y + 170 && ballY > 75 + player1Y && ballX == 20) {
+            velocityY = -1
+        }
+
+        if (ballY >= player2Y + 20 && ballY < 75 + player2Y && ballX == 680) {
+            velocityY = -1
+        }
+
+        if (ballY <= player2Y + 170 && ballY > 75 + player1Y && ballX == 680) {
+            velocityY = 1
+        }
+
+
+        ballX +=  velocityX;
+        ballY +=  velocityY;
+       
+        //Dead
+
+        if (ballX == 0) { //Player 1 Lose
+
+            restart();
+            score2++;
+            document.getElementById('player2Scor').innerHTML = score2;
+        }
+        if (ballX == 700) { //Player 2 Lose
+            restart();
+            score1++;
+            document.getElementById('player1Scor').innerHTML = score1;
+        }
+
+    }
+
+    function draw() {
+        //Draw a line
+        ctx.fillRect(0,0, 700, 500);
+        ctx.beginPath();
+        ctx.lineWidth = 10;
+        ctx.strokeStyle = 'white'
+        ctx.moveTo(350,0);
+        ctx.lineTo(350, 700);
+        ctx.stroke();
+
+        //player 1
+        ctx.beginPath();
+        ctx.lineWidth = 10;
+        ctx.strokeStyle = 'white'
+        ctx.moveTo(20,20 + player1Y);
+        ctx.lineTo(20, 170 +  player1Y);
+        ctx.stroke();
+
+        //player 2
+        ctx.beginPath();
+        ctx.lineWidth = 10;
+        ctx.strokeStyle = 'white'
+        ctx.moveTo(680,20 + player2Y);
+        ctx.lineTo(680, 170 + player2Y);
+        ctx.stroke();
+        
+        //Draw a circle
+        ctx.beginPath();
+        ctx.arc(350, 250, 25, 0, 2 * Math.PI);
+        ctx.stroke(); 
+
+        //Draw a ball
+        ctx.beginPath();
+        ctx.arc(ballX, ballY, 5, 0, 2 * Math.PI);
+        ctx.stroke(); 
+    
+
+    }
+
+    function keyEvent(e) {
+        if (e.keyCode == 87 && player1Y != -20) { //Up
+            player1Y -= 20
+        }
+      
+        if (e.keyCode == 83 && player1Y != 340) { //Down
+            player1Y += 20
+        
+        }
+
+        if (e.keyCode == 38 && player2Y != -20) { //Up
+            player2Y -= 20
+        }
+      
+        if (e.keyCode == 40 && player2Y != 340) { //Down
+            player2Y += 20
+        
+        }
+    }
+
+    function restart() {
+        ballX = 350;
+        ballY = 250;
+        velocityX *= -1
+        velocityY = 0;
+
+    }
+
+    game();
+</script>

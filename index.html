@@ -25,13 +25,13 @@
 
     var player1Y  = 0;
     var player2Y = 0;
-    var velocityX = 15;
+    var velocityX = 20;
     var velocityY = 0;
     var ballX = 350;
     var ballY = 250;
     var score1 = 0
     var score2 = 0
-    var tolerance = 1.5
+    var tolerance = 1.2
 
     setInterval(function(){
         game();
@@ -43,16 +43,16 @@
         draw();
         
         
-        //player1 ile carpısma
-        if (ballY >= player1Y + 20 && ballY <= player1Y + 170 && ballX == 20) {
+
+        if (ballY >= player1Y + 20 && ballY <= player1Y + 170 && ballX <= 20) {
             velocityX *= -1
             velocityY *= -1
           
           
        
         }
-        //player2 ile carpısma
-        if (ballY >= player2Y + 20 && ballY <= player2Y + 170 && ballX == 680) {
+   
+        if (ballY >= player2Y + 20 && ballY <= player2Y + 170 && ballX >= 680) {
             velocityX *= -1
             velocityY *= -1
        
@@ -61,7 +61,7 @@
         }
 
 
-        if (ballY >= player1Y + 20 && ballY < 75 + player1Y && ballX == 20) {
+        if (ballY >= player1Y + 20 && ballY < 75 + player1Y && ballX <= 20) {
             velocityY = 10
            
         
@@ -70,21 +70,21 @@
          
         }
 
-        if (ballY <= player1Y + 170 && ballY > 75 + player1Y && ballX == 20) {
+        if (ballY <= player1Y + 170 && ballY > 75 + player1Y && ballX <= 20) {
             velocityY = -10
          
    
          
         }
 
-        if (ballY >= player2Y + 20 && ballY < 75 + player2Y && ballX == 680) {
+        if (ballY >= player2Y + 20 && ballY < 75 + player2Y && ballX >= 680) {
             velocityY = 10
 
     
         
         }
 
-        if (ballY <= player2Y + 170 && ballY > 75 + player1Y && ballX == 680) {
+        if (ballY <= player2Y + 170 && ballY > 75 + player1Y && ballX >= 680) {
             velocityY = -10
       
           

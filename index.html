@@ -31,47 +31,68 @@
     var ballY = 250;
     var score1 = 0
     var score2 = 0
-    var tolerance = 1.2
+    var tolerance = 0.8
+    var rauntBot = true
+    var rauntPlayer = false
+  
 
     setInterval(function(){
         game();
     },1000 / 15)
     function game() {
+        impactBall = 
         cvs = document.getElementById('game');
         ctx = cvs.getContext('2d');
         document.addEventListener('keydown',  keyEvent);
         draw();
+      
         
         
 
         if (ballY >= player1Y + 20 && ballY <= player1Y + 170 && ballX <= 20) {
+            impactBall = true
             velocityX *= -1
+            if (rauntPlayer == true) {
            
-           
+                if (ballY >= player1Y + 20 &&  ballY <= player1Y + 95) {
+                    velocityY = 10
+                
+              }
+              else {
+                velocityY = -10
         
-            
-          
+              }
+
+            }
+
            
           
-          
+         
+      
        
         }
    
         if (ballY >= player2Y + 20 && ballY <= player2Y + 170 && ballX >= 680) {
             velocityX *= -1
-            velocityY = -10
+
+
+            var random = Math.floor(Math.random() * 10);
+           if (rauntBot == true) {
+            impactBall = true
+          
+            if (random % 2 == 0) {
+                velocityY = -10
+       
+            } 
+            else {
+                velocityY = 10
+
+            }
+        } 
          
-          
+      
        
-          
-       
-        }
-
-
-     
-
-     
-       
+        }  
 
         if (ballY == 0 || ballY == 500) {
             velocityY *= -1;
@@ -104,11 +125,15 @@
             restart();
             score2++;
             document.getElementById('player2Scor').innerHTML = score2;
+            rauntBot = true
+            rauntPlayer = false
         }
-        if (ballX >= 700) { //Player 2 Lose
+        if (ballX >= 700) { //Bot Lose
             restart();
             score1++;
             document.getElementById('player1Scor').innerHTML = score1;
+            rauntBot = false
+            rauntPlayer = true
         }
 
 
@@ -175,6 +200,7 @@
         ballY = 250;
         velocityX *= -1
         velocityY = 0;
+       
 
     }
 
